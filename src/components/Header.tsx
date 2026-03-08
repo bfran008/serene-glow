@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
+import logo from "@/assets/logo-airabeauty.png";
 
-const navLinks = ["Collections", "Rituels", "À propos"];
+const navLinks = [
+  { label: "Collections", href: "#collections" },
+  { label: "Coffrets", href: "#coffrets" },
+  { label: "Rituels", href: "#rituels" },
+  { label: "À propos", href: "#apropos" },
+];
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,19 +22,22 @@ const Header = () => {
     >
       <div className="glass-card px-6 py-3 flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo */}
-        <a href="/" className="font-display text-2xl font-semibold tracking-wider text-foreground">
-          Airabeauty
+        <a href="/" className="flex items-center gap-2">
+          <img src={logo} alt="Airabeauty logo" className="w-8 h-8" />
+          <span className="font-display text-2xl font-semibold tracking-wider text-foreground">
+            Airabeauty
+          </span>
         </a>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={link.label}
+              href={link.href}
               className="text-sm font-body font-light tracking-widest uppercase text-sand-muted hover:text-foreground transition-colors duration-300"
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </nav>
@@ -66,12 +75,12 @@ const Header = () => {
           <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
+                key={link.label}
+                href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="text-sm font-body font-light tracking-widest uppercase text-sand-muted hover:text-foreground transition-colors"
               >
-                {link}
+                {link.label}
               </a>
             ))}
             <a
