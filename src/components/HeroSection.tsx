@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-product.jpg";
+import logoImage from "@/assets/logo-airabeauty.png";
 
 const HeroSection = () => {
   return (
