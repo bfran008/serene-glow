@@ -9,6 +9,16 @@ const HeroSection = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/5 blur-[120px] animate-glow-pulse" />
       <div className="absolute top-1/3 right-1/4 w-[200px] h-[200px] rounded-full bg-sage/10 blur-[80px] animate-glow-pulse" style={{ animationDelay: "1.5s" }} />
 
+      {/* Giant logo leaf watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        <img
+          src={logoImage}
+          alt=""
+          className="w-[700px] lg:w-[900px] opacity-[0.04] select-none"
+          style={{ filter: "grayscale(100%) brightness(2)" }}
+        />
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-20 lg:pt-0">
         {/* Text */}
         <motion.div
