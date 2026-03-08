@@ -1,40 +1,71 @@
 import { motion } from "framer-motion";
 import { Gift, Star, Heart } from "lucide-react";
-import productOil from "@/assets/product-oil.jpg";
-import productSerum from "@/assets/product-serum.jpg";
-import productCandle from "@/assets/product-candle.jpg";
+import { useState } from "react";
+import coffretSerenite from "@/assets/coffret-serenite.jpg";
+import coffretEclat from "@/assets/coffret-eclat.jpg";
+import coffretCocooning from "@/assets/coffret-cocooning.jpg";
+import ProductDetailModal from "./ProductDetailModal";
 
 const coffrets = [
   {
     name: "Coffret Sérénité",
-    description: "L'essentiel pour des nuits paisibles. Huile rituelle, bougie apaisante et brume d'oreiller.",
+    category: "Coffret",
+    description: "L'essentiel pour des nuits paisibles. Huile rituelle, bougie apaisante et brume d'oreiller — le trio parfait pour un sommeil réparateur.",
     price: "129 €",
     originalPrice: "157 €",
-    image: productOil,
+    image: coffretSerenite,
     icon: Star,
     badge: "Best-seller",
+    ingredients: "Lavande, Camomille, Cire de Soja, Néroli",
+    volume: "3 produits — Huile 30ml + Bougie 180g + Brume 75ml",
+    details: [
+      "Économisez 28 € par rapport à l'achat séparé",
+      "Emballage cadeau inclus",
+      "Livraison offerte",
+      "Carte personnalisable incluse",
+    ],
   },
   {
     name: "Coffret Éclat Divin",
-    description: "Votre routine visage complète. Sérum doré, crème hydratante et masque éclat.",
+    category: "Coffret",
+    description: "Votre routine visage complète. Sérum doré, crème hydratante et masque éclat pour une peau lumineuse au quotidien.",
     price: "159 €",
     originalPrice: "198 €",
-    image: productSerum,
+    image: coffretEclat,
     icon: Heart,
     badge: "Nouveau",
+    ingredients: "Vitamine C, Or 24k, Acide Hyaluronique, Rétinol végétal",
+    volume: "3 produits — Sérum 30ml + Crème 50ml + Masque 75ml",
+    details: [
+      "Économisez 39 € par rapport à l'achat séparé",
+      "Routine complète matin & soir",
+      "Résultats visibles en 14 jours",
+      "Pochette en lin offerte",
+    ],
   },
   {
     name: "Coffret Cocooning",
-    description: "Un moment rien qu'à vous. Bougie, baume corps et sel de bain aux huiles essentielles.",
+    category: "Coffret",
+    description: "Un moment rien qu'à vous. Bougie, baume corps et sel de bain aux huiles essentielles pour une parenthèse bien-être absolue.",
     price: "109 €",
     originalPrice: "144 €",
-    image: productCandle,
+    image: coffretCocooning,
     icon: Gift,
     badge: "Idée cadeau",
+    ingredients: "Karité, Sauge, Sel de la Mer Morte, Vanille",
+    volume: "3 produits — Bougie 180g + Baume 200ml + Sels 400g",
+    details: [
+      "Économisez 35 € par rapport à l'achat séparé",
+      "Le cadeau idéal pour toutes les occasions",
+      "Emballage cadeau premium inclus",
+      "Parfum signature exclusif",
+    ],
   },
 ];
 
 const CoffretsSection = () => {
+  const [selectedCoffret, setSelectedCoffret] = useState<typeof coffrets[0] | null>(null);
+
   return (
     <section id="coffrets" className="relative py-28 px-6">
       <div className="max-w-7xl mx-auto">
@@ -65,6 +96,7 @@ const CoffretsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               className="glass-card overflow-hidden hover-lift group cursor-pointer"
+              onClick={() => setSelectedCoffret(coffret)}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -93,7 +125,7 @@ const CoffretsSection = () => {
                     <span className="font-body text-sm text-sand-muted line-through">{coffret.originalPrice}</span>
                   </div>
                   <button className="px-5 py-2.5 bg-primary text-primary-foreground text-xs font-body font-semibold tracking-widest uppercase rounded-full hover:opacity-90 transition-opacity">
-                    Ajouter
+                    Détails
                   </button>
                 </div>
               </div>
@@ -101,6 +133,12 @@ const CoffretsSection = () => {
           ))}
         </div>
       </div>
+
+      <ProductDetailModal
+        product={selectedCoffret}
+        isOpen={!!selectedCoffret}
+        onClose={() => setSelectedCoffret(null)}
+      />
     </section>
   );
 };
