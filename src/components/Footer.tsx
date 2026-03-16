@@ -1,14 +1,40 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
-  boutique: ["Collections", "Best-Sellers", "Coffrets", "Cartes Cadeaux"],
-  aide: ["Livraison", "Retours", "FAQ", "Contact"],
-  marque: ["Notre Histoire", "Ingrédients", "Engagements", "Presse"],
+  boutique: [
+    { label: "Collections", href: "/#collections" },
+    { label: "Best-Sellers", href: "/#collections" },
+    { label: "Coffrets", href: "/#coffrets" },
+    { label: "Cartes Cadeaux", href: "/cartes-cadeaux" },
+  ],
+  aide: [
+    { label: "Livraison", href: "/livraison" },
+    { label: "Retours", href: "/retours" },
+    { label: "FAQ", href: "/#faq" },
+    { label: "Contact", href: "/contact" },
+  ],
+  marque: [
+    { label: "Notre Histoire", href: "/#apropos" },
+    { label: "Ingrédients", href: "/ingredients" },
+    { label: "Engagements", href: "/engagements" },
+    { label: "Presse", href: "/presse" },
+  ],
 };
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+
+  const handleLinkClick = (href: string) => {
+    if (href.startsWith("/#")) {
+      const id = href.substring(2);
+      if (window.location.pathname === "/") {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <footer className="relative border-t border-border/50 pt-24 pb-12 px-6">
@@ -56,16 +82,29 @@ const Footer = () => {
                 {title}
               </h4>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="font-body font-light text-sm text-sand-muted hover:text-foreground transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const isExternal = link.href.startsWith("/#");
+                  return (
+                    <li key={link.label}>
+                      {isExternal ? (
+                        <Link
+                          to={link.href.startsWith("/#") ? "/" : link.href}
+                          onClick={() => handleLinkClick(link.href)}
+                          className="font-body font-light text-sm text-sand-muted hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          className="font-body font-light text-sm text-sand-muted hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -87,7 +126,7 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-display text-xl tracking-wider text-foreground">Airabeauty</span>
+          <Link to="/" className="font-display text-xl tracking-wider text-foreground">Airabeauty</Link>
           <p className="font-body text-xs text-sand-muted">
             © 2026 Airabeauty. Tous droits réservés.
           </p>
