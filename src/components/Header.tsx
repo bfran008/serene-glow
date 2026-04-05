@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import logo from "@/assets/logo-airabeauty.png";
+import { useCart } from "@/contexts/CartContext";
 
 const navLinks = [
   { label: "Collections", href: "#collections" },
@@ -12,6 +13,7 @@ const navLinks = [
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { totalItems, setIsOpen } = useCart();
 
   return (
     <motion.header
@@ -44,11 +46,13 @@ const Header = () => {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
-          <button className="relative text-foreground hover:text-primary transition-colors">
+          <button onClick={() => setIsOpen(true)} className="relative text-foreground hover:text-primary transition-colors">
             <ShoppingBag size={20} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-body font-semibold rounded-full flex items-center justify-center">
-              0
-            </span>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-body font-semibold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
           </button>
           <a
             href="#collections"
