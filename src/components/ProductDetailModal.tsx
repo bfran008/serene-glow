@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 interface Product {
   name: string;
@@ -21,6 +22,7 @@ interface ProductDetailModalProps {
 
 const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProps) => {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   if (!product) return null;
 
@@ -131,7 +133,10 @@ const ProductDetailModal = ({ product, isOpen, onClose }: ProductDetailModalProp
                 </div>
 
                 {/* CTA */}
-                <button className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-widest uppercase rounded-full hover:opacity-90 transition-opacity glow-gold">
+                <button
+                  onClick={() => { addToCart(product, quantity); onClose(); setQuantity(1); }}
+                  className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-widest uppercase rounded-full hover:opacity-90 transition-opacity glow-gold"
+                >
                   <ShoppingBag size={16} />
                   Ajouter au rituel
                 </button>
