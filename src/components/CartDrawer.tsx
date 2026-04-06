@@ -1,9 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CartDrawer = () => {
   const { items, isOpen, setIsOpen, updateQuantity, removeItem, totalItems, totalPrice, clearCart } = useCart();
+  const navigate = useNavigate();
 
   return (
     <AnimatePresence>
@@ -115,7 +117,10 @@ const CartDrawer = () => {
                 <p className="text-[10px] font-body text-muted-foreground text-center">
                   Livraison offerte dès 50€ • Retours gratuits sous 30 jours
                 </p>
-                <button className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-widest uppercase rounded-full hover:opacity-90 transition-opacity glow-gold">
+                <button
+                  onClick={() => { setIsOpen(false); navigate("/checkout"); }}
+                  className="w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-widest uppercase rounded-full hover:opacity-90 transition-opacity glow-gold"
+                >
                   <ShoppingBag size={16} />
                   Valider le rituel
                 </button>
