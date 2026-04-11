@@ -5,6 +5,7 @@ import { useCart } from "@/contexts/CartContext";
 import logo from "@/assets/logo-airabeauty.png";
 
 const navLinks = [
+  { label: "Accueil", href: "/" },
   { label: "Collections", href: "#collections" },
   { label: "Coffrets", href: "#coffrets" },
   { label: "Rituels", href: "#rituels" },
