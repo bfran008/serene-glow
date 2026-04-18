@@ -64,14 +64,18 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.4 }}
           className="relative flex justify-center"
         >
-          <div className="relative animate-float">
+          <motion.div
+            className="relative"
+            animate={{ y: [0, -16, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
             <img
               src={heroImage}
               alt="Huile essentielle premium Airabeauty"
               className="w-full max-w-md rounded-3xl shadow-2xl"
             />
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-background/40 to-transparent" />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
